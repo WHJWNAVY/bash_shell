@@ -1,3 +1,53 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [SHELL变量](#shell%E5%8F%98%E9%87%8F)
+  - [定义变量](#%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F)
+  - [使用变量](#%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F)
+  - [修改变量的值](#%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC)
+  - [单引号和双引号](#%E5%8D%95%E5%BC%95%E5%8F%B7%E5%92%8C%E5%8F%8C%E5%BC%95%E5%8F%B7)
+  - [将命令的结果赋值给变量](#%E5%B0%86%E5%91%BD%E4%BB%A4%E7%9A%84%E7%BB%93%E6%9E%9C%E8%B5%8B%E5%80%BC%E7%BB%99%E5%8F%98%E9%87%8F)
+  - [只读变量](#%E5%8F%AA%E8%AF%BB%E5%8F%98%E9%87%8F)
+  - [删除变量](#%E5%88%A0%E9%99%A4%E5%8F%98%E9%87%8F)
+- [特殊变量](#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F)
+- [字符串拼接](#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5)
+- [字符串截取](#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96)
+  - [从指定位置开始截取](#%E4%BB%8E%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E5%BC%80%E5%A7%8B%E6%88%AA%E5%8F%96)
+    - [从左边开始计数](#%E4%BB%8E%E5%B7%A6%E8%BE%B9%E5%BC%80%E5%A7%8B%E8%AE%A1%E6%95%B0)
+    - [从右边开始计数](#%E4%BB%8E%E5%8F%B3%E8%BE%B9%E5%BC%80%E5%A7%8B%E8%AE%A1%E6%95%B0)
+  - [从指定字符（子字符串）开始截取](#%E4%BB%8E%E6%8C%87%E5%AE%9A%E5%AD%97%E7%AC%A6%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%BC%80%E5%A7%8B%E6%88%AA%E5%8F%96)
+    - [使用 # 号截取右边字符](#%E4%BD%BF%E7%94%A8--%E5%8F%B7%E6%88%AA%E5%8F%96%E5%8F%B3%E8%BE%B9%E5%AD%97%E7%AC%A6)
+    - [使用 % 截取左边字符](#%E4%BD%BF%E7%94%A8-%25-%E6%88%AA%E5%8F%96%E5%B7%A6%E8%BE%B9%E5%AD%97%E7%AC%A6)
+- [SHELL 条件判断](#shell-%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD)
+  - [IF的基本语法](#if%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95)
+  - [文件/文件夹判断](#%E6%96%87%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%A4%E6%96%AD)
+  - [字符串判断](#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%A4%E6%96%AD)
+  - [数值判断](#%E6%95%B0%E5%80%BC%E5%88%A4%E6%96%AD)
+  - [逻辑判断](#%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD)
+  - [其他判断](#%E5%85%B6%E4%BB%96%E5%88%A4%E6%96%AD)
+- [IF高级特性](#if%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7)
+  - [双圆括号`(())`](#%E5%8F%8C%E5%9C%86%E6%8B%AC%E5%8F%B7)
+  - [双方括号`[[]]`](#%E5%8F%8C%E6%96%B9%E6%8B%AC%E5%8F%B7)
+- [复杂逻辑判断](#%E5%A4%8D%E6%9D%82%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD)
+- [数学计算](#%E6%95%B0%E5%AD%A6%E8%AE%A1%E7%AE%97)
+  - [算术运算符](#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6)
+  - [数学计算命令](#%E6%95%B0%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%91%BD%E4%BB%A4)
+  - [举例](#%E4%B8%BE%E4%BE%8B)
+- [read](#read)
+- [case in](#case-in)
+- [while](#while)
+- [break](#break)
+- [for](#for)
+- [select in](#select-in)
+- [SHELLE数组](#shelle%E6%95%B0%E7%BB%84)
+  - [数组的定义和使用](#%E6%95%B0%E7%BB%84%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BD%BF%E7%94%A8)
+  - [获取数组长度](#%E8%8E%B7%E5%8F%96%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6)
+  - [数组的拼接](#%E6%95%B0%E7%BB%84%E7%9A%84%E6%8B%BC%E6%8E%A5)
+  - [删除数组元素](#%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # SHELL变量
 
 ## 定义变量
